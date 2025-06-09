@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { TrendingUp, TrendingDown, Calendar, DollarSign, Play, Users } from 'lucide-react';
+import { TrendingUp, TrendingDown, Calendar, DollarSign, Play, Users, Music } from 'lucide-react';
 
 interface PlatformBreakdownDialogProps {
   children: React.ReactNode;
@@ -16,6 +16,35 @@ interface PlatformBreakdownDialogProps {
     icon: any;
   };
 }
+
+// Add mock top songs data
+const mockTopSongs = {
+  'Spotify': [
+    { title: 'Midnight Dreams', artist: 'Luna Echo', streams: 45000, revenue: 1800 },
+    { title: 'Electric Soul', artist: 'Neon Pulse', streams: 38000, revenue: 1520 },
+    { title: 'Cosmic Waves', artist: 'Star Child', streams: 32000, revenue: 1280 },
+  ],
+  'Apple Music': [
+    { title: 'Midnight Dreams', artist: 'Luna Echo', streams: 28000, revenue: 1400 },
+    { title: 'Electric Soul', artist: 'Neon Pulse', streams: 24000, revenue: 1200 },
+    { title: 'Cosmic Waves', artist: 'Star Child', streams: 20000, revenue: 1000 },
+  ],
+  'YouTube': [
+    { title: 'Midnight Dreams', artist: 'Luna Echo', streams: 15000, revenue: 450 },
+    { title: 'Electric Soul', artist: 'Neon Pulse', streams: 12000, revenue: 360 },
+    { title: 'Cosmic Waves', artist: 'Star Child', streams: 10000, revenue: 300 },
+  ],
+  'Bandcamp': [
+    { title: 'Midnight Dreams', artist: 'Luna Echo', streams: 5000, revenue: 750 },
+    { title: 'Electric Soul', artist: 'Neon Pulse', streams: 4000, revenue: 600 },
+    { title: 'Cosmic Waves', artist: 'Star Child', streams: 3000, revenue: 450 },
+  ],
+  'Others': [
+    { title: 'Midnight Dreams', artist: 'Luna Echo', streams: 2000, revenue: 100 },
+    { title: 'Electric Soul', artist: 'Neon Pulse', streams: 1500, revenue: 75 },
+    { title: 'Cosmic Waves', artist: 'Star Child', streams: 1000, revenue: 50 },
+  ],
+};
 
 export default function PlatformBreakdownDialog({ children, platform }: PlatformBreakdownDialogProps) {
   const [open, setOpen] = useState(false);
@@ -39,8 +68,8 @@ export default function PlatformBreakdownDialog({ children, platform }: Platform
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-[800px] max-h-[80vh] overflow-y-auto">
+        <DialogHeader className="bg-background pb-2 border-b">
           <DialogTitle className="flex items-center gap-2">
             <div className={`p-2 rounded-lg ${platform.color} text-white`}>
               <platform.icon className="h-5 w-5" />
@@ -52,7 +81,7 @@ export default function PlatformBreakdownDialog({ children, platform }: Platform
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-6"
+          className="space-y-6 pt-4"
         >
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -92,9 +121,10 @@ export default function PlatformBreakdownDialog({ children, platform }: Platform
 
           {/* Monthly Breakdown */}
           <Tabs defaultValue="revenue" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="revenue">Revenue Breakdown</TabsTrigger>
               <TabsTrigger value="performance">Performance Metrics</TabsTrigger>
+              <TabsTrigger value="songs">Top Songs</TabsTrigger>
             </TabsList>
             
             <TabsContent value="revenue" className="space-y-4">
@@ -168,6 +198,46 @@ export default function PlatformBreakdownDialog({ children, platform }: Platform
                       <p className="text-lg font-semibold">${(totalRevenue / totalStreams * 1000).toFixed(4)}</p>
                       <p className="text-sm text-muted-foreground">Average across all months</p>
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="songs" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Music className="h-4 w-4" />
+                    Top Performing Songs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {(mockTopSongs[platform.name as keyof typeof mockTopSongs] || []).map((song, index) => (
+                      <motion.div
+                        key={song.title}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">
+                            {index + 1}
+                          </div>
+                          <div className="min-w-0">
+                            <div className="font-medium truncate">{song.title}</div>
+                            <div className="text-xs text-muted-foreground truncate">{song.artist}</div>
+                          </div>
+                        </div>
+                        <div className="text-right flex-shrink-0 ml-4">
+                          <div className="font-semibold">${song.revenue.toLocaleString()}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {song.streams.toLocaleString()} streams
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
