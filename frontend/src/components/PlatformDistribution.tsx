@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Music, ShoppingBag, Video } from 'lucide-react';
+import PlatformBreakdownDialog from '@/components/PlatformBreakdownDialog';
 
 export default function PlatformDistribution() {
   const platforms = [
@@ -48,10 +49,11 @@ export default function PlatformDistribution() {
                       strokeWidth="8"
                       strokeDasharray={strokeDasharray}
                       strokeDashoffset={strokeDashoffset}
-                      className={platform.color.replace('bg-', 'stroke-')}
+                      className={`${platform.color.replace('bg-', 'stroke-')} cursor-pointer hover:stroke-[10] transition-all`}
                       initial={{ strokeDasharray: `0 ${circumference}` }}
                       animate={{ strokeDasharray }}
                       transition={{ delay: 0.5 + index * 0.2, duration: 1 }}
+                      whileHover={{ strokeWidth: 10 }}
                     />
                   );
                 })}
@@ -65,7 +67,7 @@ export default function PlatformDistribution() {
                   transition={{ delay: 1, type: "spring" }}
                   className="text-center"
                 >
-                  <div className="text-2xl font-bold">${total.toLocaleString()}</div>
+                  <div className="text-xl sm:text-2xl font-bold">${total.toLocaleString()}</div>
                   <div className="text-xs text-muted-foreground">Total Revenue</div>
                 </motion.div>
               </div>
@@ -74,32 +76,34 @@ export default function PlatformDistribution() {
             {/* Platform List */}
             <div className="space-y-3">
               {platforms.map((platform, index) => (
-                <motion.div
-                  key={platform.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${platform.color} text-white`}>
-                      <platform.icon className="h-4 w-4" />
+                <PlatformBreakdownDialog key={platform.name} platform={platform}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg ${platform.color} text-white group-hover:scale-110 transition-transform`}>
+                        <platform.icon className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-sm">{platform.name}</div>
+                        <div className="text-xs text-muted-foreground">{platform.percentage}% of total</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-sm">{platform.name}</div>
-                      <div className="text-xs text-muted-foreground">{platform.percentage}% of total</div>
+                    <div className="text-right">
+                      <div className="font-semibold">${platform.revenue.toLocaleString()}</div>
+                      <motion.div
+                        className={`h-1 rounded-full ${platform.color} mt-1`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${platform.percentage}%` }}
+                        transition={{ delay: 0.8 + index * 0.1, duration: 0.8 }}
+                      />
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-semibold">${platform.revenue.toLocaleString()}</div>
-                    <motion.div
-                      className={`h-1 rounded-full ${platform.color} mt-1`}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${platform.percentage}%` }}
-                      transition={{ delay: 0.8 + index * 0.1, duration: 0.8 }}
-                    />
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </PlatformBreakdownDialog>
               ))}
             </div>
           </div>

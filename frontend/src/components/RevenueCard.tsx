@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, MoreVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { TrendingUp, TrendingDown, MoreVertical, Eye, Download, Share, Settings } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface RevenueCardProps {
   title: string;
@@ -22,6 +25,14 @@ export default function RevenueCard({
   index 
 }: RevenueCardProps) {
   const isPositive = change >= 0;
+  const { toast } = useToast();
+
+  const handleMenuAction = (action: string) => {
+    toast({
+      title: `${action} ${title}`,
+      description: `${action} action for ${platform} revenue data.`,
+    });
+  };
 
   return (
     <motion.div
@@ -53,15 +64,41 @@ export default function RevenueCard({
             >
               {platform}
             </Badge>
-            <Button variant="ghost" size="sm" className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity">
-              <MoreVertical className="h-3 w-3" />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent"
+                >
+                  <MoreVertical className="h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem onClick={() => handleMenuAction('View Details')}>
+                  <Eye className="h-4 w-4 mr-2" />
+                  View Details
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleMenuAction('Download Report')}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Download Report
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleMenuAction('Share')}>
+                  <Share className="h-4 w-4 mr-2" />
+                  Share
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleMenuAction('Settings')}>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </CardHeader>
         
         <CardContent className="relative z-10">
           <motion.div 
-            className="text-2xl sm:text-3xl font-bold mb-2 truncate"
+            className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 truncate"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ delay: index * 0.1 + 0.2 }}
