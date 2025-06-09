@@ -67,8 +67,8 @@ export default function Index() {
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-2">
                   Welcome back, <GradientText>John</GradientText>
                 </h1>
-                <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">
-                  Track your music revenue across all platforms in real-time
+                <p className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed">
+                  SplitStream is an all-in-one financial tracking and royalty management platform designed for music releases. It aggregates revenue and streaming data from all major platforms—including Spotify, Apple Music, Bandcamp, TikTok, and merchandise stores—and provides real-time insights into performance, earnings, and audience behavior. The system automates recoupment by first directing revenue to the label or master rights holder until costs are recovered, then seamlessly distributing remaining income to artists, producers, and other stakeholders based on pre-set contractual splits. With integrated analytics, customizable reporting, and transparent accounting, the platform simplifies financial oversight for artists, labels, and managers alike.
                 </p>
               </div>
               

@@ -180,7 +180,7 @@ const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-bold text-foreground whitespace-pre text-lg sm:text-xl gradient-text hidden sm:block"
       >
-        Harmony Hub
+        SplitStream
       </motion.span>
     </motion.a>
   );
