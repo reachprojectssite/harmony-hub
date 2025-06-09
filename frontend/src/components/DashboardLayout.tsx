@@ -8,7 +8,6 @@ import {
   Settings,
   FileText,
   BarChart3,
-  Bell,
   Search,
   Menu
 } from 'lucide-react';
@@ -16,6 +15,7 @@ import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import NotificationDropdown from '@/components/NotificationDropdown';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -136,12 +136,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
           </div>
           
-          {/* User Actions */}
+          {/* User Actions with Notifications */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            <Button variant="ghost" size="sm" className="relative">
-              <Bell className="h-4 w-4" />
-              <span className="absolute -top-1 -right-1 h-3 w-3 bg-primary rounded-full animate-pulse" />
-            </Button>
+            <NotificationDropdown />
             <motion.div 
               className="h-8 w-8 rounded-full harmony-gradient flex items-center justify-center cursor-pointer"
               whileHover={{ scale: 1.1 }}

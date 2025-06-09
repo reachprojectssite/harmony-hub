@@ -3,7 +3,6 @@ import DashboardLayout from '@/components/DashboardLayout';
 import RevenueCard from '@/components/RevenueCard';
 import RevenueTrends from '@/components/RevenueTrends';
 import PlatformDistribution from '@/components/PlatformDistribution';
-import NotificationPanel from '@/components/NotificationPanel';
 import AddReleaseDialog from '@/components/AddReleaseDialog';
 import { GradientText } from '@/components/ui/gradient-text';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -151,65 +150,56 @@ export default function Index() {
             <PlatformDistribution />
           </motion.section>
 
-          {/* Bottom Section */}
+          {/* Recent Activity - Full Width */}
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="grid gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-3"
           >
-            {/* Recent Activity */}
-            <div className="lg:col-span-2">
-              <Card className="glass-effect border-border/50 shadow-xl h-full">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Activity className="h-5 w-5 text-primary" />
-                    Recent Activity
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[
-                      { action: "New payout received", platform: "Spotify", amount: "$847.32", time: "2 hours ago", type: "success" },
-                      { action: "Recoupment milestone reached", platform: "Universal", amount: "$15,000", time: "1 day ago", type: "milestone" },
-                      { action: "New streaming data", platform: "Apple Music", amount: "$234.56", time: "3 days ago", type: "data" },
-                      { action: "Contract renewal due", platform: "Distribution", amount: "Action Required", time: "1 week ago", type: "warning" },
-                    ].map((activity, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1 + index * 0.1 }}
-                        whileHover={{ scale: 1.02, x: 5 }}
-                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl bg-gradient-to-r from-card/50 to-muted/20 border border-border/50 hover:border-primary/20 transition-all duration-300 cursor-pointer group"
-                      >
-                        <div className="flex items-center gap-4 min-w-0 flex-1">
-                          <div className={`h-3 w-3 rounded-full flex-shrink-0 ${
-                            activity.type === 'success' ? 'bg-green-500' : 
-                            activity.type === 'milestone' ? 'bg-purple-500' : 
-                            activity.type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
-                          } animate-pulse`} />
-                          <div className="min-w-0 flex-1">
-                            <p className="font-medium group-hover:text-primary transition-colors text-sm sm:text-base truncate">{activity.action}</p>
-                            <p className="text-xs sm:text-sm text-muted-foreground truncate">{activity.platform} • {activity.time}</p>
-                          </div>
+            <Card className="glass-effect border-border/50 shadow-xl">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Activity className="h-5 w-5 text-primary" />
+                  Recent Activity
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {[
+                    { action: "New payout received", platform: "Spotify", amount: "$847.32", time: "2 hours ago", type: "success" },
+                    { action: "Recoupment milestone reached", platform: "Universal", amount: "$15,000", time: "1 day ago", type: "milestone" },
+                    { action: "New streaming data", platform: "Apple Music", amount: "$234.56", time: "3 days ago", type: "data" },
+                    { action: "Contract renewal due", platform: "Distribution", amount: "Action Required", time: "1 week ago", type: "warning" },
+                  ].map((activity, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1 + index * 0.1 }}
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-card/50 to-muted/20 border border-border/50 hover:border-primary/20 transition-all duration-300 cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-4 min-w-0 flex-1">
+                        <div className={`h-3 w-3 rounded-full flex-shrink-0 ${
+                          activity.type === 'success' ? 'bg-green-500' : 
+                          activity.type === 'milestone' ? 'bg-purple-500' : 
+                          activity.type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
+                        } animate-pulse`} />
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium group-hover:text-primary transition-colors text-sm truncate">{activity.action}</p>
+                          <p className="text-xs text-muted-foreground truncate">{activity.platform} • {activity.time}</p>
                         </div>
-                        <div className="text-right flex-shrink-0">
-                          <p className={`font-semibold text-base sm:text-lg ${activity.type === 'warning' ? 'text-yellow-500' : ''}`}>
-                            {activity.amount}
-                          </p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Notifications Panel */}
-            <div className="lg:col-span-1">
-              <NotificationPanel />
-            </div>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <p className={`font-semibold text-sm ${activity.type === 'warning' ? 'text-yellow-500' : ''}`}>
+                          {activity.amount}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </motion.section>
         </div>
       </div>
