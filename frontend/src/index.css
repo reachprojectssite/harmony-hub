@@ -22,12 +22,25 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 262 83% 58%;
-  --radius: 0.5rem;
+  --radius: 0.75rem;
   --chart-1: 12 76% 61%;
   --chart-2: 173 58% 39%;
   --chart-3: 197 37% 24%;
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
+  
+  /* Harmony Hub custom colors */
+  --harmony-purple: 262 83% 58%;
+  --harmony-blue: 217 91% 60%;
+  --harmony-green: 142 76% 36%;
+  --harmony-orange: 25 95% 53%;
+  --harmony-pink: 330 81% 60%;
+  
+  /* Gradient text colors */
+  --color-1: 262 83% 58%;
+  --color-2: 217 91% 60%;
+  --color-3: 142 76% 36%;
+  --color-4: 330 81% 60%;
 }
 
 .dark {
@@ -55,6 +68,12 @@
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
+  
+  /* Dark mode gradient colors */
+  --color-1: 262 83% 68%;
+  --color-2: 217 91% 70%;
+  --color-3: 142 76% 46%;
+  --color-4: 330 81% 70%;
 }
 
 * {
@@ -89,23 +108,78 @@ body {
   }
 }
 
-/* Custom music industry theme colors */
-:root {
-  --harmony-purple: 262 83% 58%;
-  --harmony-blue: 217 91% 60%;
-  --harmony-green: 142 76% 36%;
-  --harmony-orange: 25 95% 53%;
-  --harmony-pink: 330 81% 60%;
+/* Enhanced animations */
+@keyframes gradient-border {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
+@keyframes gradient-1 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.5); }
+  33% { transform: translate(20%, 20%) scale(1); }
+  66% { transform: translate(-20%, 10%) scale(1.2); }
+}
+
+@keyframes gradient-2 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.5); }
+  33% { transform: translate(-20%, 20%) scale(1); }
+  66% { transform: translate(10%, -10%) scale(1.2); }
+}
+
+@keyframes gradient-3 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.5); }
+  33% { transform: translate(-10%, -20%) scale(1); }
+  66% { transform: translate(20%, 10%) scale(1.2); }
+}
+
+@keyframes gradient-4 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.5); }
+  33% { transform: translate(20%, -10%) scale(1); }
+  66% { transform: translate(-10%, 20%) scale(1.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.6); }
+}
+
+/* Custom utility classes */
 .harmony-gradient {
   background: linear-gradient(135deg, hsl(var(--harmony-purple)) 0%, hsl(var(--harmony-blue)) 100%);
 }
 
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .revenue-card {
-  @apply bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200;
+  @apply bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-primary/20;
 }
 
 .platform-badge {
-  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium backdrop-blur-sm;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--color-1)), hsl(var(--color-2)), hsl(var(--color-3)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradient-border 3s ease infinite;
 }
