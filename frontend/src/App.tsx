@@ -9,7 +9,7 @@ import NotFound from "@/pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <div className="m-0 p-0 min-h-screen w-full bg-background">
+  <div className="m-0 p-0 min-h-screen w-full bg-background overflow-x-hidden">
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />

@@ -66,7 +66,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="flex h-screen w-full bg-background overflow-hidden m-0 p-0">
       {/* Desktop Sidebar */}
-      <div className="hidden lg:flex">
+      <div className="hidden lg:flex flex-shrink-0">
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
             <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
@@ -86,10 +86,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <motion.header 
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="border-b border-border/50 bg-card/30 backdrop-blur-sm p-4 flex items-center justify-between flex-shrink-0"
+          className="border-b border-border/50 bg-card/30 backdrop-blur-sm p-3 sm:p-4 flex items-center justify-between flex-shrink-0"
         >
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-4 lg:hidden">
+          <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="sm">
@@ -122,22 +122,24 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 </div>
               </SheetContent>
             </Sheet>
-            <Logo />
+            <div className="lg:hidden">
+              <Logo />
+            </div>
           </div>
 
           {/* Enhanced Search Bar */}
-          <div className="flex items-center gap-4 flex-1 max-w-2xl mx-4">
+          <div className="flex items-center gap-2 sm:gap-4 flex-1 max-w-3xl mx-2 sm:mx-4">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
                 placeholder="Search releases, contracts, artists, revenue data..." 
-                className="pl-10 bg-background/50 border-border/50 w-full h-10"
+                className="pl-10 bg-background/50 border-border/50 w-full h-9 sm:h-10 text-sm"
               />
             </div>
           </div>
           
           {/* User Actions with Notifications */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             <NotificationDropdown />
             <motion.div 
               className="h-8 w-8 rounded-full harmony-gradient flex items-center justify-center cursor-pointer"
@@ -167,16 +169,16 @@ const Logo = () => {
       whileTap={{ scale: 0.95 }}
     >
       <motion.div 
-        className="h-8 w-8 harmony-gradient rounded-xl flex-shrink-0 flex items-center justify-center shadow-lg"
+        className="h-6 w-6 sm:h-8 sm:w-8 harmony-gradient rounded-xl flex-shrink-0 flex items-center justify-center shadow-lg"
         animate={{ rotate: [0, 5, -5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Music className="h-5 w-5 text-white" />
+        <Music className="h-3 w-3 sm:h-5 sm:w-5 text-white" />
       </motion.div>
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-bold text-foreground whitespace-pre text-xl gradient-text hidden sm:block"
+        className="font-bold text-foreground whitespace-pre text-lg sm:text-xl gradient-text hidden sm:block"
       >
         Harmony Hub
       </motion.span>
