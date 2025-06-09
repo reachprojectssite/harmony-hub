@@ -75,23 +75,23 @@ export default function Index() {
           animate={{ opacity: 1 }}
           className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-4 sm:p-6 lg:p-8 border-b border-border/50"
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+          {/* Subtle Background Pattern - Behind content */}
+          <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),transparent_50%)]" />
+          <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(45deg,transparent_25%,rgba(120,119,198,0.1)_50%,transparent_75%)]" />
           
           <div className="max-w-screen-xl mx-auto w-full relative z-10">
             {/* Main Hero Content */}
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-12 lg:mb-16"
+              className="text-center mb-12 lg:mb-16 relative z-20"
             >
               {/* Welcome Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6 backdrop-blur-sm"
               >
                 <div className="h-2 w-2 bg-primary rounded-full animate-pulse" />
                 Welcome back, John
@@ -103,12 +103,14 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 relative z-30"
               >
                 Your Music Revenue,{" "}
-                <GradientText className="block sm:inline">
-                  Simplified & Automated
-                </GradientText>
+                <span className="block sm:inline">
+                  <GradientText>
+                    Simplified & Automated
+                  </GradientText>
+                </span>
               </motion.h1>
 
               {/* Subtitle */}
@@ -116,7 +118,7 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
+                className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 relative z-30"
               >
                 Track, manage, and distribute music royalties across all platforms with intelligent recoupment and transparent splits.
               </motion.p>
@@ -126,16 +128,16 @@ export default function Index() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 relative z-30"
               >
                 <AddReleaseDialog>
-                  <Button size="lg" className="harmony-gradient text-white shadow-lg hover:shadow-xl transition-all animate-pulse-glow px-8 py-3">
+                  <Button size="lg" className="harmony-gradient text-white shadow-lg hover:shadow-xl transition-all px-8 py-3">
                     <Plus className="h-5 w-5 mr-2" />
                     Add New Release
                   </Button>
                 </AddReleaseDialog>
                 
-                <Button variant="outline" size="lg" className="shadow-sm hover:shadow-md transition-shadow px-8 py-3">
+                <Button variant="outline" size="lg" className="shadow-sm hover:shadow-md transition-shadow px-8 py-3 backdrop-blur-sm">
                   <Download className="h-5 w-5 mr-2" />
                   Export Analytics
                 </Button>
@@ -147,7 +149,7 @@ export default function Index() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 relative z-20"
             >
               {features.map((feature, index) => (
                 <motion.div
@@ -156,7 +158,7 @@ export default function Index() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.1 }}
                   whileHover={{ scale: 1.02, y: -5 }}
-                  className="glass-effect rounded-xl p-6 text-center group cursor-pointer"
+                  className="glass-effect rounded-xl p-6 text-center group cursor-pointer backdrop-blur-sm"
                 >
                   <div className="harmony-gradient rounded-lg w-12 h-12 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                     <feature.icon className="h-6 w-6 text-white" />
@@ -172,7 +174,7 @@ export default function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
-              className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-20"
             >
               {quickStats.map((stat, index) => (
                 <motion.div
@@ -181,7 +183,7 @@ export default function Index() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 + index * 0.1 }}
                   whileHover={{ scale: 1.05 }}
-                  className="glass-effect rounded-xl p-6 flex items-center gap-4 group cursor-pointer"
+                  className="glass-effect rounded-xl p-6 flex items-center gap-4 group cursor-pointer backdrop-blur-sm"
                 >
                   <div className={`p-3 rounded-lg bg-background/50 ${stat.color} group-hover:scale-110 transition-transform`}>
                     <stat.icon className="h-6 w-6" />
