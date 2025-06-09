@@ -23,7 +23,14 @@ import {
   Youtube,
   Instagram,
   X,
-  Headphones
+  Headphones,
+  Globe,
+  CreditCard,
+  FileSignature,
+  Store,
+  Radio,
+  Disc,
+  Smartphone
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -36,6 +43,7 @@ interface PlatformLink {
   platform: string;
   url: string;
   isConnected: boolean;
+  category: 'streaming' | 'social' | 'commerce' | 'distribution' | 'legal' | 'radio';
 }
 
 interface Recoupable {
@@ -80,15 +88,47 @@ export default function AddReleaseDialog({ children }: AddReleaseDialogProps) {
     publishingRights: '',
   });
 
-  // Platform Links
+  // Enhanced Platform Links with categories
   const [platformLinks, setPlatformLinks] = useState<PlatformLink[]>([
-    { id: '1', platform: 'Spotify', url: '', isConnected: false },
-    { id: '2', platform: 'Apple Music', url: '', isConnected: false },
-    { id: '3', platform: 'YouTube Music', url: '', isConnected: false },
-    { id: '4', platform: 'SoundCloud', url: '', isConnected: false },
-    { id: '5', platform: 'Bandcamp', url: '', isConnected: false },
-    { id: '6', platform: 'TikTok', url: '', isConnected: false },
-    { id: '7', platform: 'Instagram', url: '', isConnected: false },
+    // Streaming Platforms
+    { id: '1', platform: 'Spotify', url: '', isConnected: false, category: 'streaming' },
+    { id: '2', platform: 'Apple Music', url: '', isConnected: false, category: 'streaming' },
+    { id: '3', platform: 'YouTube Music', url: '', isConnected: false, category: 'streaming' },
+    { id: '4', platform: 'Amazon Music', url: '', isConnected: false, category: 'streaming' },
+    { id: '5', platform: 'Deezer', url: '', isConnected: false, category: 'streaming' },
+    { id: '6', platform: 'Tidal', url: '', isConnected: false, category: 'streaming' },
+    
+    // Social Media Platforms
+    { id: '7', platform: 'TikTok', url: '', isConnected: false, category: 'social' },
+    { id: '8', platform: 'Instagram', url: '', isConnected: false, category: 'social' },
+    { id: '9', platform: 'Facebook', url: '', isConnected: false, category: 'social' },
+    { id: '10', platform: 'Twitter/X', url: '', isConnected: false, category: 'social' },
+    { id: '11', platform: 'YouTube', url: '', isConnected: false, category: 'social' },
+    
+    // Commerce & Sales
+    { id: '12', platform: 'Bandcamp', url: '', isConnected: false, category: 'commerce' },
+    { id: '13', platform: 'Shopify', url: '', isConnected: false, category: 'commerce' },
+    { id: '14', platform: 'Etsy', url: '', isConnected: false, category: 'commerce' },
+    { id: '15', platform: 'Stripe', url: '', isConnected: false, category: 'commerce' },
+    { id: '16', platform: 'PayPal', url: '', isConnected: false, category: 'commerce' },
+    { id: '17', platform: 'Square', url: '', isConnected: false, category: 'commerce' },
+    
+    // Distribution Platforms
+    { id: '18', platform: 'DistroKid', url: '', isConnected: false, category: 'distribution' },
+    { id: '19', platform: 'CD Baby', url: '', isConnected: false, category: 'distribution' },
+    { id: '20', platform: 'TuneCore', url: '', isConnected: false, category: 'distribution' },
+    { id: '21', platform: 'LANDR', url: '', isConnected: false, category: 'distribution' },
+    { id: '22', platform: 'Amuse', url: '', isConnected: false, category: 'distribution' },
+    
+    // Legal & Contracts
+    { id: '23', platform: 'DocuSign', url: '', isConnected: false, category: 'legal' },
+    { id: '24', platform: 'HelloSign', url: '', isConnected: false, category: 'legal' },
+    { id: '25', platform: 'Adobe Sign', url: '', isConnected: false, category: 'legal' },
+    
+    // Radio & Broadcasting
+    { id: '26', platform: 'SiriusXM', url: '', isConnected: false, category: 'radio' },
+    { id: '27', platform: 'iHeartRadio', url: '', isConnected: false, category: 'radio' },
+    { id: '28', platform: 'Pandora', url: '', isConnected: false, category: 'radio' },
   ]);
 
   // Recoupables
@@ -207,14 +247,60 @@ export default function AddReleaseDialog({ children }: AddReleaseDialogProps) {
     setMerchItems(prev => prev.filter(item => item.id !== id));
   };
 
-  const getPlatformIcon = (platform: string) => {
+  const getPlatformIcon = (platform: string, category: string) => {
     switch (platform.toLowerCase()) {
       case 'spotify': return <div className="h-4 w-4 bg-green-500 rounded-full" />;
-      case 'youtube music': return <Youtube className="h-4 w-4 text-red-500" />;
+      case 'apple music': return <div className="h-4 w-4 bg-gray-800 rounded-sm" />;
+      case 'youtube music':
+      case 'youtube': return <Youtube className="h-4 w-4 text-red-500" />;
       case 'instagram': return <Instagram className="h-4 w-4 text-pink-500" />;
-      case 'tiktok': return <div className="h-4 w-4 bg-black rounded-full" />;
-      default: return <Headphones className="h-4 w-4 text-muted-foreground" />;
+      case 'tiktok': return <Smartphone className="h-4 w-4 text-black" />;
+      case 'shopify': return <Store className="h-4 w-4 text-green-600" />;
+      case 'docusign': return <FileSignature className="h-4 w-4 text-blue-600" />;
+      case 'stripe': return <CreditCard className="h-4 w-4 text-purple-600" />;
+      case 'bandcamp': return <Disc className="h-4 w-4 text-blue-500" />;
+      case 'sirius':
+      case 'siriusxm': return <Radio className="h-4 w-4 text-blue-700" />;
+      default: 
+        switch (category) {
+          case 'streaming': return <Headphones className="h-4 w-4 text-blue-500" />;
+          case 'social': return <Instagram className="h-4 w-4 text-pink-500" />;
+          case 'commerce': return <ShoppingBag className="h-4 w-4 text-green-500" />;
+          case 'distribution': return <Globe className="h-4 w-4 text-purple-500" />;
+          case 'legal': return <FileSignature className="h-4 w-4 text-blue-600" />;
+          case 'radio': return <Radio className="h-4 w-4 text-orange-500" />;
+          default: return <Headphones className="h-4 w-4 text-muted-foreground" />;
+        }
     }
+  };
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'streaming': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
+      case 'social': return 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-400';
+      case 'commerce': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
+      case 'distribution': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400';
+      case 'legal': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
+      case 'radio': return 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
+    }
+  };
+
+  const groupedPlatforms = platformLinks.reduce((acc, platform) => {
+    if (!acc[platform.category]) {
+      acc[platform.category] = [];
+    }
+    acc[platform.category].push(platform);
+    return acc;
+  }, {} as Record<string, PlatformLink[]>);
+
+  const categoryLabels = {
+    streaming: 'Streaming Platforms',
+    social: 'Social Media',
+    commerce: 'Commerce & Sales',
+    distribution: 'Distribution',
+    legal: 'Legal & Contracts',
+    radio: 'Radio & Broadcasting'
   };
 
   return (
@@ -427,7 +513,7 @@ export default function AddReleaseDialog({ children }: AddReleaseDialogProps) {
                       </motion.div>
                     </TabsContent>
 
-                    {/* Platform Links Tab */}
+                    {/* Enhanced Platform Links Tab */}
                     <TabsContent value="platforms" className="space-y-6 mt-0">
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -441,38 +527,51 @@ export default function AddReleaseDialog({ children }: AddReleaseDialogProps) {
                               Platform Integration
                             </CardTitle>
                             <p className="text-sm text-muted-foreground">
-                              Connect your artist accounts and add direct links to your release
+                              Connect your accounts across streaming, social, commerce, and business platforms
                             </p>
                           </CardHeader>
-                          <CardContent className="space-y-4">
-                            {platformLinks.map((link) => (
-                              <motion.div
-                                key={link.id}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="flex flex-col lg:flex-row lg:items-center gap-4 p-4 border rounded-lg"
-                              >
-                                <div className="flex items-center gap-3 lg:flex-1 lg:min-w-0">
-                                  {getPlatformIcon(link.platform)}
-                                  <span className="font-medium">{link.platform}</span>
-                                  <Badge variant={link.isConnected ? "default" : "secondary"}>
-                                    {link.isConnected ? "Connected" : "Not Connected"}
+                          <CardContent className="space-y-6">
+                            {Object.entries(groupedPlatforms).map(([category, platforms]) => (
+                              <div key={category} className="space-y-4">
+                                <div className="flex items-center gap-2">
+                                  <h3 className="font-semibold text-base">{categoryLabels[category as keyof typeof categoryLabels]}</h3>
+                                  <Badge variant="outline" className={getCategoryColor(category)}>
+                                    {platforms.length} platforms
                                   </Badge>
                                 </div>
                                 
-                                <div className="flex items-center gap-2 lg:flex-1">
-                                  <Input
-                                    placeholder={`${link.platform} URL or Artist ID`}
-                                    value={link.url}
-                                    onChange={(e) => updatePlatformLink(link.id, 'url', e.target.value)}
-                                    className="flex-1"
-                                  />
-                                  <Switch
-                                    checked={link.isConnected}
-                                    onCheckedChange={(checked) => updatePlatformLink(link.id, 'isConnected', checked)}
-                                  />
+                                <div className="grid gap-3">
+                                  {platforms.map((link) => (
+                                    <motion.div
+                                      key={link.id}
+                                      initial={{ opacity: 0, x: -20 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      className="flex flex-col lg:flex-row lg:items-center gap-4 p-4 border rounded-lg hover:border-primary/20 transition-colors"
+                                    >
+                                      <div className="flex items-center gap-3 lg:flex-1 lg:min-w-0">
+                                        {getPlatformIcon(link.platform, link.category)}
+                                        <span className="font-medium">{link.platform}</span>
+                                        <Badge variant={link.isConnected ? "default" : "secondary"} className="text-xs">
+                                          {link.isConnected ? "Connected" : "Not Connected"}
+                                        </Badge>
+                                      </div>
+                                      
+                                      <div className="flex items-center gap-2 lg:flex-1">
+                                        <Input
+                                          placeholder={`${link.platform} URL, API key, or Account ID`}
+                                          value={link.url}
+                                          onChange={(e) => updatePlatformLink(link.id, 'url', e.target.value)}
+                                          className="flex-1"
+                                        />
+                                        <Switch
+                                          checked={link.isConnected}
+                                          onCheckedChange={(checked) => updatePlatformLink(link.id, 'isConnected', checked)}
+                                        />
+                                      </div>
+                                    </motion.div>
+                                  ))}
                                 </div>
-                              </motion.div>
+                              </div>
                             ))}
                           </CardContent>
                         </Card>
