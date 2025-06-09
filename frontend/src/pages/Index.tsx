@@ -5,7 +5,7 @@ import { GradientText } from '@/components/ui/gradient-text';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Download, Play, Pause, Activity, Users, TrendingUp } from 'lucide-react';
+import { Plus, Download, Play, Activity, Users, TrendingUp } from 'lucide-react';
 
 export default function Index() {
   const revenueData = [
@@ -47,36 +47,38 @@ export default function Index() {
 
   return (
     <DashboardLayout>
-      <div className="p-0 m-0 w-full min-h-full">
+      <div className="w-full min-h-full m-0 p-0">
         {/* Hero Section */}
         <motion.section 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-8 border-b border-border/50"
+          className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-4 sm:p-6 lg:p-8 border-b border-border/50"
         >
-          <div className="max-w-screen-xl mx-auto">
+          <div className="max-w-screen-xl mx-auto w-full">
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-between mb-8"
+              className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6 lg:mb-8"
             >
-              <div>
-                <h1 className="text-4xl font-bold tracking-tight mb-2">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-2">
                   Welcome back, <GradientText>John</GradientText>
                 </h1>
-                <p className="text-muted-foreground text-lg">
+                <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">
                   Track your music revenue across all platforms in real-time
                 </p>
               </div>
               
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
                 <Button variant="outline" size="lg" className="shadow-sm hover:shadow-md transition-shadow">
                   <Download className="h-4 w-4 mr-2" />
-                  Export Report
+                  <span className="hidden sm:inline">Export Report</span>
+                  <span className="sm:hidden">Export</span>
                 </Button>
                 <Button size="lg" className="harmony-gradient text-white shadow-lg hover:shadow-xl transition-all animate-pulse-glow">
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Release
+                  <span className="hidden sm:inline">Add Release</span>
+                  <span className="sm:hidden">Add</span>
                 </Button>
               </div>
             </motion.div>
@@ -86,7 +88,7 @@ export default function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 lg:mb-8"
             >
               {quickStats.map((stat, index) => (
                 <motion.div
@@ -99,9 +101,9 @@ export default function Index() {
                   <div className={`p-2 rounded-lg bg-background/50 ${stat.color}`}>
                     <stat.icon className="h-5 w-5" />
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold">{stat.value}</p>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xl sm:text-2xl font-bold truncate">{stat.value}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground truncate">{stat.label}</p>
                   </div>
                 </motion.div>
               ))}
@@ -110,22 +112,22 @@ export default function Index() {
         </motion.section>
 
         {/* Main Content */}
-        <div className="p-8 space-y-8 max-w-screen-xl mx-auto w-full">
+        <div className="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 max-w-screen-xl mx-auto w-full">
           {/* Revenue Cards */}
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-semibold">Revenue Overview</h2>
-              <Badge variant="secondary" className="animate-float">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <h2 className="text-xl sm:text-2xl font-semibold">Revenue Overview</h2>
+              <Badge variant="secondary" className="animate-float self-start sm:self-auto">
                 <Activity className="h-3 w-3 mr-1" />
                 Live Data
               </Badge>
             </div>
             
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
               {revenueData.map((data, index) => (
                 <RevenueCard key={data.title} {...data} index={index} />
               ))}
@@ -137,7 +139,7 @@ export default function Index() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="grid gap-8 lg:grid-cols-2"
+            className="grid gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-2"
           >
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -145,22 +147,22 @@ export default function Index() {
               transition={{ delay: 0.7 }}
               whileHover={{ scale: 1.01 }}
             >
-              <Card className="glass-effect border-border/50 shadow-xl">
+              <Card className="glass-effect border-border/50 shadow-xl h-full">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-lg">
                     <TrendingUp className="h-5 w-5 text-primary" />
                     Revenue Trends
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[300px] flex items-center justify-center text-muted-foreground bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg">
+                  <div className="h-[250px] sm:h-[300px] flex items-center justify-center text-muted-foreground bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg">
                     <motion.div
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                       className="text-center"
                     >
-                      <Activity className="h-12 w-12 mx-auto mb-4 text-primary" />
-                      <p>Interactive chart visualization coming soon</p>
+                      <Activity className="h-8 sm:h-12 w-8 sm:w-12 mx-auto mb-4 text-primary" />
+                      <p className="text-sm sm:text-base">Interactive chart visualization coming soon</p>
                     </motion.div>
                   </div>
                 </CardContent>
@@ -173,24 +175,24 @@ export default function Index() {
               transition={{ delay: 0.8 }}
               whileHover={{ scale: 1.01 }}
             >
-              <Card className="glass-effect border-border/50 shadow-xl">
+              <Card className="glass-effect border-border/50 shadow-xl h-full">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-lg">
                     <Play className="h-5 w-5 text-primary" />
                     Platform Distribution
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[300px] flex items-center justify-center text-muted-foreground bg-gradient-to-br from-secondary/5 to-primary/5 rounded-lg">
+                  <div className="h-[250px] sm:h-[300px] flex items-center justify-center text-muted-foreground bg-gradient-to-br from-secondary/5 to-primary/5 rounded-lg">
                     <motion.div
                       animate={{ rotate: [0, 360] }}
                       transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                       className="text-center"
                     >
-                      <div className="h-12 w-12 mx-auto mb-4 rounded-full harmony-gradient flex items-center justify-center">
-                        <Play className="h-6 w-6 text-white" />
+                      <div className="h-8 sm:h-12 w-8 sm:w-12 mx-auto mb-4 rounded-full harmony-gradient flex items-center justify-center">
+                        <Play className="h-4 sm:h-6 w-4 sm:w-6 text-white" />
                       </div>
-                      <p>Platform breakdown chart coming soon</p>
+                      <p className="text-sm sm:text-base">Platform breakdown chart coming soon</p>
                     </motion.div>
                   </div>
                 </CardContent>
@@ -206,7 +208,7 @@ export default function Index() {
           >
             <Card className="glass-effect border-border/50 shadow-xl">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-lg">
                   <Activity className="h-5 w-5 text-primary" />
                   Recent Activity
                 </CardTitle>
@@ -224,20 +226,20 @@ export default function Index() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 1 + index * 0.1 }}
                       whileHover={{ scale: 1.02, x: 5 }}
-                      className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-card/50 to-muted/20 border border-border/50 hover:border-primary/20 transition-all duration-300 cursor-pointer group"
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl bg-gradient-to-r from-card/50 to-muted/20 border border-border/50 hover:border-primary/20 transition-all duration-300 cursor-pointer group"
                     >
-                      <div className="flex items-center gap-4">
-                        <div className={`h-3 w-3 rounded-full ${
+                      <div className="flex items-center gap-4 min-w-0 flex-1">
+                        <div className={`h-3 w-3 rounded-full flex-shrink-0 ${
                           activity.type === 'success' ? 'bg-green-500' : 
                           activity.type === 'milestone' ? 'bg-purple-500' : 'bg-blue-500'
                         } animate-pulse`} />
-                        <div>
-                          <p className="font-medium group-hover:text-primary transition-colors">{activity.action}</p>
-                          <p className="text-sm text-muted-foreground">{activity.platform} • {activity.time}</p>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium group-hover:text-primary transition-colors text-sm sm:text-base truncate">{activity.action}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground truncate">{activity.platform} • {activity.time}</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-semibold text-lg">{activity.amount}</p>
+                      <div className="text-right flex-shrink-0">
+                        <p className="font-semibold text-base sm:text-lg">{activity.amount}</p>
                       </div>
                     </motion.div>
                   ))}

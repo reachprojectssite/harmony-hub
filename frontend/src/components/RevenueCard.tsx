@@ -38,17 +38,17 @@ export default function RevenueCard({
         y: -5,
         transition: { type: "spring", stiffness: 400, damping: 25 }
       }}
-      className="group"
+      className="group w-full"
     >
-      <Card className="revenue-card relative overflow-hidden">
+      <Card className="revenue-card relative overflow-hidden h-full">
         {/* Animated background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 relative z-10">
-          <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-          <div className="flex items-center gap-2">
+          <CardTitle className="text-sm font-medium text-muted-foreground truncate pr-2">{title}</CardTitle>
+          <div className="flex items-center gap-2 flex-shrink-0">
             <Badge 
-              className={`platform-badge ${platformColor} shadow-sm`}
+              className={`platform-badge ${platformColor} shadow-sm text-xs`}
               variant="secondary"
             >
               {platform}
@@ -61,7 +61,7 @@ export default function RevenueCard({
         
         <CardContent className="relative z-10">
           <motion.div 
-            className="text-3xl font-bold mb-2"
+            className="text-2xl sm:text-3xl font-bold mb-2 truncate"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ delay: index * 0.1 + 0.2 }}
@@ -86,6 +86,7 @@ export default function RevenueCard({
                 ease: "easeInOut",
                 delay: index * 0.2
               }}
+              className="flex-shrink-0"
             >
               {isPositive ? (
                 <TrendingUp className="h-4 w-4 text-green-500 mr-2" />
@@ -94,10 +95,12 @@ export default function RevenueCard({
               )}
             </motion.div>
             
-            <span className={`font-semibold ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
-              {isPositive ? '+' : ''}{change}%
-            </span>
-            <span className="ml-2 text-muted-foreground">vs last month</span>
+            <div className="min-w-0 flex-1">
+              <span className={`font-semibold ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                {isPositive ? '+' : ''}{change}%
+              </span>
+              <span className="ml-2 text-muted-foreground text-xs sm:text-sm">vs last month</span>
+            </div>
           </motion.div>
           
           {/* Progress bar */}
@@ -110,7 +113,7 @@ export default function RevenueCard({
             <motion.div 
               className={`h-full ${isPositive ? 'bg-green-500' : 'bg-red-500'} rounded-full`}
               initial={{ width: 0 }}
-              animate={{ width: `${Math.abs(change) * 2}%` }}
+              animate={{ width: `${Math.min(Math.abs(change) * 2, 100)}%` }}
               transition={{ delay: index * 0.1 + 0.6, duration: 1 }}
             />
           </motion.div>
