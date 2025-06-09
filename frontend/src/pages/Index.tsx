@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
 import DashboardLayout from '@/components/DashboardLayout';
 import RevenueCard from '@/components/RevenueCard';
+import RevenueTrends from '@/components/RevenueTrends';
+import PlatformDistribution from '@/components/PlatformDistribution';
+import NotificationPanel from '@/components/NotificationPanel';
+import AddReleaseDialog from '@/components/AddReleaseDialog';
 import { GradientText } from '@/components/ui/gradient-text';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -75,11 +79,13 @@ export default function Index() {
                   <span className="hidden sm:inline">Export Report</span>
                   <span className="sm:hidden">Export</span>
                 </Button>
-                <Button size="lg" className="harmony-gradient text-white shadow-lg hover:shadow-xl transition-all animate-pulse-glow">
-                  <Plus className="h-4 w-4 mr-2" />
-                  <span className="hidden sm:inline">Add Release</span>
-                  <span className="sm:hidden">Add</span>
-                </Button>
+                <AddReleaseDialog>
+                  <Button size="lg" className="harmony-gradient text-white shadow-lg hover:shadow-xl transition-all animate-pulse-glow">
+                    <Plus className="h-4 w-4 mr-2" />
+                    <span className="hidden sm:inline">Add Release</span>
+                    <span className="sm:hidden">Add</span>
+                  </Button>
+                </AddReleaseDialog>
               </div>
             </motion.div>
 
@@ -134,118 +140,76 @@ export default function Index() {
             </div>
           </motion.section>
 
-          {/* Charts Section */}
+          {/* Analytics Section */}
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
             className="grid gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-2"
           >
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.7 }}
-              whileHover={{ scale: 1.01 }}
-            >
-              <Card className="glass-effect border-border/50 shadow-xl h-full">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <TrendingUp className="h-5 w-5 text-primary" />
-                    Revenue Trends
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-[250px] sm:h-[300px] flex items-center justify-center text-muted-foreground bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg">
-                    <motion.div
-                      animate={{ scale: [1, 1.05, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="text-center"
-                    >
-                      <Activity className="h-8 sm:h-12 w-8 sm:w-12 mx-auto mb-4 text-primary" />
-                      <p className="text-sm sm:text-base">Interactive chart visualization coming soon</p>
-                    </motion.div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 }}
-              whileHover={{ scale: 1.01 }}
-            >
-              <Card className="glass-effect border-border/50 shadow-xl h-full">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Play className="h-5 w-5 text-primary" />
-                    Platform Distribution
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-[250px] sm:h-[300px] flex items-center justify-center text-muted-foreground bg-gradient-to-br from-secondary/5 to-primary/5 rounded-lg">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      className="text-center"
-                    >
-                      <div className="h-8 sm:h-12 w-8 sm:w-12 mx-auto mb-4 rounded-full harmony-gradient flex items-center justify-center">
-                        <Play className="h-4 sm:h-6 w-4 sm:w-6 text-white" />
-                      </div>
-                      <p className="text-sm sm:text-base">Platform breakdown chart coming soon</p>
-                    </motion.div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+            <RevenueTrends />
+            <PlatformDistribution />
           </motion.section>
 
-          {/* Recent Activity */}
+          {/* Bottom Section */}
           <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="grid gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-3"
           >
-            <Card className="glass-effect border-border/50 shadow-xl">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <Activity className="h-5 w-5 text-primary" />
-                  Recent Activity
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { action: "New payout received", platform: "Spotify", amount: "$847.32", time: "2 hours ago", type: "success" },
-                    { action: "Recoupment milestone reached", platform: "Universal", amount: "$15,000", time: "1 day ago", type: "milestone" },
-                    { action: "New streaming data", platform: "Apple Music", amount: "$234.56", time: "3 days ago", type: "data" },
-                  ].map((activity, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 1 + index * 0.1 }}
-                      whileHover={{ scale: 1.02, x: 5 }}
-                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl bg-gradient-to-r from-card/50 to-muted/20 border border-border/50 hover:border-primary/20 transition-all duration-300 cursor-pointer group"
-                    >
-                      <div className="flex items-center gap-4 min-w-0 flex-1">
-                        <div className={`h-3 w-3 rounded-full flex-shrink-0 ${
-                          activity.type === 'success' ? 'bg-green-500' : 
-                          activity.type === 'milestone' ? 'bg-purple-500' : 'bg-blue-500'
-                        } animate-pulse`} />
-                        <div className="min-w-0 flex-1">
-                          <p className="font-medium group-hover:text-primary transition-colors text-sm sm:text-base truncate">{activity.action}</p>
-                          <p className="text-xs sm:text-sm text-muted-foreground truncate">{activity.platform} • {activity.time}</p>
+            {/* Recent Activity */}
+            <div className="lg:col-span-2">
+              <Card className="glass-effect border-border/50 shadow-xl h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Activity className="h-5 w-5 text-primary" />
+                    Recent Activity
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {[
+                      { action: "New payout received", platform: "Spotify", amount: "$847.32", time: "2 hours ago", type: "success" },
+                      { action: "Recoupment milestone reached", platform: "Universal", amount: "$15,000", time: "1 day ago", type: "milestone" },
+                      { action: "New streaming data", platform: "Apple Music", amount: "$234.56", time: "3 days ago", type: "data" },
+                      { action: "Contract renewal due", platform: "Distribution", amount: "Action Required", time: "1 week ago", type: "warning" },
+                    ].map((activity, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 1 + index * 0.1 }}
+                        whileHover={{ scale: 1.02, x: 5 }}
+                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl bg-gradient-to-r from-card/50 to-muted/20 border border-border/50 hover:border-primary/20 transition-all duration-300 cursor-pointer group"
+                      >
+                        <div className="flex items-center gap-4 min-w-0 flex-1">
+                          <div className={`h-3 w-3 rounded-full flex-shrink-0 ${
+                            activity.type === 'success' ? 'bg-green-500' : 
+                            activity.type === 'milestone' ? 'bg-purple-500' : 
+                            activity.type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
+                          } animate-pulse`} />
+                          <div className="min-w-0 flex-1">
+                            <p className="font-medium group-hover:text-primary transition-colors text-sm sm:text-base truncate">{activity.action}</p>
+                            <p className="text-xs sm:text-sm text-muted-foreground truncate">{activity.platform} • {activity.time}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <p className="font-semibold text-base sm:text-lg">{activity.amount}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                        <div className="text-right flex-shrink-0">
+                          <p className={`font-semibold text-base sm:text-lg ${activity.type === 'warning' ? 'text-yellow-500' : ''}`}>
+                            {activity.amount}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Notifications Panel */}
+            <div className="lg:col-span-1">
+              <NotificationPanel />
+            </div>
           </motion.section>
         </div>
       </div>

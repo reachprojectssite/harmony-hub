@@ -10,8 +10,7 @@ import {
   BarChart3,
   Bell,
   Search,
-  Menu,
-  X
+  Menu
 } from 'lucide-react';
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
@@ -126,13 +125,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <Logo />
           </div>
 
-          {/* Search Bar */}
-          <div className="flex items-center gap-4 flex-1 max-w-md mx-4">
+          {/* Enhanced Search Bar */}
+          <div className="flex items-center gap-4 flex-1 max-w-2xl mx-4">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
-                placeholder="Search releases, contracts..." 
-                className="pl-10 bg-background/50 border-border/50 w-full"
+                placeholder="Search releases, contracts, artists, revenue data..." 
+                className="pl-10 bg-background/50 border-border/50 w-full h-10"
               />
             </div>
           </div>
