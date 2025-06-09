@@ -8,7 +8,7 @@ import { GradientText } from '@/components/ui/gradient-text';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Download, Play, Activity, Users, TrendingUp } from 'lucide-react';
+import { Plus, Download, Play, Activity, Users, TrendingUp, ChevronRight, Zap, Target, BarChart3 } from 'lucide-react';
 
 export default function Index() {
   const revenueData = [
@@ -48,67 +48,147 @@ export default function Index() {
     { label: "Monthly Growth", value: "+18%", icon: TrendingUp, color: "text-purple-500" },
   ];
 
+  const features = [
+    {
+      icon: Zap,
+      title: "Real-time Tracking",
+      description: "Monitor revenue across all platforms instantly"
+    },
+    {
+      icon: Target,
+      title: "Smart Recoupment",
+      description: "Automated cost recovery and profit distribution"
+    },
+    {
+      icon: BarChart3,
+      title: "Advanced Analytics",
+      description: "Deep insights into performance and earnings"
+    }
+  ];
+
   return (
     <DashboardLayout>
       <div className="w-full min-h-full m-0 p-0">
-        {/* Hero Section */}
+        {/* Enhanced Hero Section */}
         <motion.section 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-4 sm:p-6 lg:p-8 border-b border-border/50"
+          className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-4 sm:p-6 lg:p-8 border-b border-border/50"
         >
-          <div className="max-w-screen-xl mx-auto w-full">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+          
+          <div className="max-w-screen-xl mx-auto w-full relative z-10">
+            {/* Main Hero Content */}
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6 lg:mb-8"
+              className="text-center mb-12 lg:mb-16"
             >
-              <div className="flex-1 min-w-0">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-2">
-                  Welcome back, <GradientText>John</GradientText>
-                </h1>
-                <p className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed">
-                  SplitStream is an all-in-one financial tracking and royalty management platform designed for music releases. It aggregates revenue and streaming data from all major platforms—including Spotify, Apple Music, Bandcamp, TikTok, and merchandise stores—and provides real-time insights into performance, earnings, and audience behavior. The system automates recoupment by first directing revenue to the label or master rights holder until costs are recovered, then seamlessly distributing remaining income to artists, producers, and other stakeholders based on pre-set contractual splits. With integrated analytics, customizable reporting, and transparent accounting, the platform simplifies financial oversight for artists, labels, and managers alike.
-                </p>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
-                <Button variant="outline" size="lg" className="shadow-sm hover:shadow-md transition-shadow">
-                  <Download className="h-4 w-4 mr-2" />
-                  <span className="hidden sm:inline">Export Report</span>
-                  <span className="sm:hidden">Export</span>
-                </Button>
+              {/* Welcome Badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6"
+              >
+                <div className="h-2 w-2 bg-primary rounded-full animate-pulse" />
+                Welcome back, John
+                <ChevronRight className="h-3 w-3" />
+              </motion.div>
+
+              {/* Main Title */}
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+              >
+                Your Music Revenue,{" "}
+                <GradientText className="block sm:inline">
+                  Simplified & Automated
+                </GradientText>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
+              >
+                Track, manage, and distribute music royalties across all platforms with intelligent recoupment and transparent splits.
+              </motion.p>
+
+              {/* Action Buttons */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+              >
                 <AddReleaseDialog>
-                  <Button size="lg" className="harmony-gradient text-white shadow-lg hover:shadow-xl transition-all animate-pulse-glow">
-                    <Plus className="h-4 w-4 mr-2" />
-                    <span className="hidden sm:inline">Add Release</span>
-                    <span className="sm:hidden">Add</span>
+                  <Button size="lg" className="harmony-gradient text-white shadow-lg hover:shadow-xl transition-all animate-pulse-glow px-8 py-3">
+                    <Plus className="h-5 w-5 mr-2" />
+                    Add New Release
                   </Button>
                 </AddReleaseDialog>
-              </div>
+                
+                <Button variant="outline" size="lg" className="shadow-sm hover:shadow-md transition-shadow px-8 py-3">
+                  <Download className="h-5 w-5 mr-2" />
+                  Export Analytics
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Feature Cards */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+            >
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 + index * 0.1 }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="glass-effect rounded-xl p-6 text-center group cursor-pointer"
+                >
+                  <div className="harmony-gradient rounded-lg w-12 h-12 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <feature.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </motion.div>
+              ))}
             </motion.div>
 
             {/* Quick Stats */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 lg:mb-8"
+              transition={{ delay: 0.9 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4"
             >
               {quickStats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="glass-effect rounded-xl p-4 flex items-center gap-3"
+                  transition={{ delay: 1 + index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="glass-effect rounded-xl p-6 flex items-center gap-4 group cursor-pointer"
                 >
-                  <div className={`p-2 rounded-lg bg-background/50 ${stat.color}`}>
-                    <stat.icon className="h-5 w-5" />
+                  <div className={`p-3 rounded-lg bg-background/50 ${stat.color} group-hover:scale-110 transition-transform`}>
+                    <stat.icon className="h-6 w-6" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xl sm:text-2xl font-bold truncate">{stat.value}</p>
-                    <p className="text-xs sm:text-sm text-muted-foreground truncate">{stat.label}</p>
+                    <p className="text-2xl sm:text-3xl font-bold truncate">{stat.value}</p>
+                    <p className="text-sm text-muted-foreground truncate">{stat.label}</p>
                   </div>
                 </motion.div>
               ))}
